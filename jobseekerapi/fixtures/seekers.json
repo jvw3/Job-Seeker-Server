@@ -1,0 +1,23 @@
+[
+    {
+        "model": "jobseekerapi.seeker",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "I'm the admin",
+            "current_role": "ADMIN",
+            "is_admin": true
+        }
+    },
+    {
+        "model": "jobseekerapi.seeker",
+        "pk": 2,
+        "fields": {
+            "bio": "Aspiring software Developer",
+            "user": 2,
+            "current_role": "Apprentice Software Engineer",
+            "is_admin": false
+        }
+    }
+
+]

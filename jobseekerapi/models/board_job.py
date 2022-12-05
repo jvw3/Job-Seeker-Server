@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class BoardJob(models.Model):
@@ -10,9 +11,9 @@ class BoardJob(models.Model):
     prep = models.ForeignKey("InterviewPrep", on_delete=models.CASCADE)
     has_interviewed = models.BooleanField()
     interview_rounds = models.IntegerField()
-    salary_rating = models.PositiveIntegerField(default=0, validators=[])
-    location_rating = models.PositiveIntegerField(default=0, validators=[])
-    culture_rating = models.PositiveIntegerField(default=0, validators=[])
-    leadership_rating = models.PositiveIntegerField(default=0, validators=[])
-    team_rating = models.PositiveIntegerField(default=0, validators=[])
+    salary_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    location_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    culture_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    leadership_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    team_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
     job_score = models.IntegerField()

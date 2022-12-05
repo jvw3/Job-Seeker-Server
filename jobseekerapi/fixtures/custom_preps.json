@@ -1,0 +1,12 @@
+[
+    {
+        "model": "jobseekerapi.customprepinfo",
+        "pk": 1,
+        "fields": {
+            "prep": 1,
+            "title": "important algorithms",
+            "description": "Algorithms to focus on!",
+            "content": "reversing a string, manipulating a multi-dimensional array, and using string methods."
+        }
+    }
+]

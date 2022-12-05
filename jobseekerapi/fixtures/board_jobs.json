@@ -1,0 +1,19 @@
+[
+    {
+        "model": "jobseekerapi.boardjob",
+        "pk": 1,
+        "fields": {
+            "job": 1,
+            "company": 2,
+            "prep": 1,
+            "has_interviewed": true,
+            "interview_rounds": 1,
+            "salary_rating": 7,
+            "location_rating": 7,
+            "culture_rating": 7,
+            "leadership_rating": 7,
+            "team_rating": 7,
+            "job_score": 7
+        }
+    }
+]
