@@ -1,0 +1,42 @@
+[
+    {
+        "model": "jobseekerapi.boardcategory",
+        "pk": 1,
+        "fields": {
+            "board": 1,
+            "category": 1
+        }
+    },
+    {
+        "model": "jobseekerapi.boardcategory",
+        "pk": 2,
+        "fields": {
+            "board": 1,
+            "category": 2
+        }
+    },
+    {
+        "model": "jobseekerapi.boardcategory",
+        "pk": 3,
+        "fields": {
+            "board": 1,
+            "category": 3
+        }
+    },
+    {
+        "model": "jobseekerapi.boardcategory",
+        "pk": 4,
+        "fields": {
+            "board": 1,
+            "category": 4
+        }
+    },
+    {
+        "model": "jobseekerapi.boardcategory",
+        "pk": 5,
+        "fields": {
+            "board": 1,
+            "category": 5
+        }
+    }
+]

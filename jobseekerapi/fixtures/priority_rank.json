@@ -1,0 +1,14 @@
+[
+    {
+        "model": "jobseekerapi.priorityrank",
+        "pk": 1,
+        "fields": {
+            "board": 1,
+            "salary": 1,
+            "location": 2,
+            "culture": 3,
+            "leadership": 4,
+            "team": 5
+        }
+    }
+]

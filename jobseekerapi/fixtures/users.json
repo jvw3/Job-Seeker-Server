@@ -1,0 +1,28 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "admin_seeker",
+            "first_name": "Admin",
+            "last_name": "User",
+            "email": "admin@me.com",
+            "password": "headhoncho",
+            "is_staff": true,
+            "is_active": true
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "jvw_3",
+            "first_name": "Jonathan",
+            "last_name": "Woodard",
+            "email": "jwoodard@me.com",
+            "password": "ilovecoding",
+            "is_staff": true,
+            "is_active": true
+        }
+    }
+]

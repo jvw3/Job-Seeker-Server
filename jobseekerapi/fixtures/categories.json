@@ -1,0 +1,58 @@
+[
+    {
+        "model": "jobseekerapi.category",
+        "pk": 1,
+        "fields": {
+            "name": "Wishlist"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 2,
+        "fields": {
+            "name": "Ready To Apply"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 3,
+        "fields": {
+            "name": "Applied"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 4,
+        "fields": {
+            "name": "Interviewed"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 5,
+        "fields": {
+            "name": "Interview Scheduled"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 6,
+        "fields": {
+            "name": "Denied (By Company)"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 7,
+        "fields": {
+            "name": "Declined (By Applicant)"
+        }
+    },
+    {
+        "model": "jobseekerapi.category",
+        "pk": 8,
+        "fields": {
+            "name": "Missed Deadline"
+        }
+    }
+]

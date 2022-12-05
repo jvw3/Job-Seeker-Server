@@ -1,0 +1,23 @@
+[
+    {
+        "model": "jobseekerapi.question",
+        "pk": 1,
+        "fields": {
+            "content": "What initially drew you to software development?"
+        }
+    },
+    {
+        "model": "jobseekerapi.question",
+        "pk": 2,
+        "fields": {
+            "content": "What specifically do you enjoy about software development?"
+        }
+    },
+    {
+        "model": "jobseekerapi.question",
+        "pk": 3,
+        "fields": {
+            "content": "Are you passionate about a career in the tech industry? Why?"
+        }
+    }
+]

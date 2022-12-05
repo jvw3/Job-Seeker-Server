@@ -1,0 +1,26 @@
+[
+    {
+        "model": "jobseekerapi.prepquestion",
+        "pk": 1,
+        "fields": {
+            "prep": 1,
+            "question": 1
+        }
+    },
+    {
+        "model": "jobseekerapi.prepquestion",
+        "pk": 2,
+        "fields": {
+            "prep": 1,
+            "question": 2
+        }
+    },
+    {
+        "model": "jobseekerapi.prepquestion",
+        "pk": 3,
+        "fields": {
+            "prep": 1,
+            "question": 3
+        }
+    }
+]
