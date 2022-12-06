@@ -6,4 +6,4 @@ class InterviewPrep(models.Model):
 
     seeker = models.ForeignKey("Seeker", on_delete=models.CASCADE)
     company_info = models.TextField(max_length=5000)
-    elevator_pitch = models.TextField(max_length=500)
+    questions = models.ManyToManyField("Question", through="PrepQuestion", related_name="questions")

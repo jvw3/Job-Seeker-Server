@@ -4,6 +4,7 @@
         "pk": 1,
         "fields": {
             "board_job": 1,
+            "prep": 1,
             "date": "2023-1-13",
             "is_complete": true,
             "interview_feedback": "Need to do better on Technical Questions!"

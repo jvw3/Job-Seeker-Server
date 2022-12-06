@@ -6,6 +6,7 @@
             "user": 1,
             "bio": "I'm the admin",
             "current_role": "ADMIN",
+            "elevator_pitch": "I'm a software Developer.",
             "is_admin": true
         }
     },
@@ -16,6 +17,7 @@
             "bio": "Aspiring software Developer",
             "user": 2,
             "current_role": "Apprentice Software Engineer",
+            "elevator_pitch": "I'm a software Developer.",
             "is_admin": false
         }
     }

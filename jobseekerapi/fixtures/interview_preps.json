@@ -4,8 +4,7 @@
         "pk": 1,
         "fields": {
             "seeker": 2,
-            "company_info": "Mission Statement: To change the world!",
-            "elevator_pitch": "I'm a software Developer."
+            "company_info": "Mission Statement: To change the world!"
         }
     }
 ]
