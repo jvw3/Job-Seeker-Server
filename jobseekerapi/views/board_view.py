@@ -33,10 +33,10 @@ class BoardView(ViewSet):
 
     def create(self, request):
 
-        new_seeker = Seeker.objects.get(user=request.auth.user)
+        seeker = Seeker.objects.get(user=request.auth.user)
 
         board = Board.objects.create(
-            seekerId=new_seeker,
+            seekerId=seeker,
             title=request.data["title"],
             goal=request.data["goal"],
             requirements=request.data["requirements"],
