@@ -17,3 +17,4 @@ class BoardJob(models.Model):
     team_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
     job_score = models.IntegerField(null=True, blank=True)
     board = models.ForeignKey("Board", on_delete=models.CASCADE, related_name="jobs")
+    category_state = models.CharField(max_length=50, blank=True)
