@@ -19,7 +19,7 @@ class CategoryView(ViewSet):
             category = Category.objects.get(pk=pk)
         except:
             return Response(
-                {"message": "The board you requested does not exist"},
+                {"message": "The category you requested does not exist"},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
