@@ -7,5 +7,5 @@ from .job_view import JobView
 from .interview_prep_view import InterviewPrepView
 from .custom_preps import CustomPrepView
 from .board_job_view import BoardJobView
-
 from .interview_view import InterviewView
+from .seeker_view import SeekerView
