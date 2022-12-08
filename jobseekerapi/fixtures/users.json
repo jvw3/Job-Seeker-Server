@@ -21,7 +21,7 @@
             "last_name": "Woodard",
             "email": "jwoodard@me.com",
             "password": "ilovecoding",
-            "is_staff": true,
+            "is_staff": false,
             "is_active": true
         }
     }
