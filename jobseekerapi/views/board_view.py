@@ -36,7 +36,7 @@ class BoardView(ViewSet):
         seeker = Seeker.objects.get(user=request.auth.user)
 
         board = Board.objects.create(
-            seekerId=seeker,
+            seeker=seeker,
             title=request.data["title"],
             goal=request.data["goal"],
             requirements=request.data["requirements"],
@@ -64,7 +64,7 @@ class BoardView(ViewSet):
 class SeekerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seeker
-        fields = ("id", "full_name", "username", "current_role")
+        fields = ("id", "full_name", "username", "current_role", "elevator_pitch")
 
 
 class CategorySerializer(serializers.ModelSerializer):
