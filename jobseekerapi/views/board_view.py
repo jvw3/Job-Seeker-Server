@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Board, Category, Seeker
+from jobseekerapi.models import Board, Category, Seeker, Company, Board, BoardJob, Job
 
 
 class BoardView(ViewSet):
@@ -61,6 +61,27 @@ class BoardView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ("id", "name")
+
+
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = ("id", "title")
+
+
+class BoardJobSerializer(serializers.ModelSerializer):
+
+    company = CompanySerializer(many=False)
+    job = JobSerializer(many=False)
+
+    class Meta:
+        model = BoardJob
+        fields = ("id", "job", "company", "has_interviewed", "interview_rounds", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category_state")
+
 class SeekerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seeker
@@ -76,7 +97,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class BoardSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
     seeker = SeekerSerializer(many=False)
+    jobs = BoardJobSerializer(many=True)
 
     class Meta:
         model = Board
-        fields = ("id", "seeker", "title", "goal", "requirements", "categories")
+        fields = ("id", "seeker", "title", "goal", "requirements", "categories", "jobs")

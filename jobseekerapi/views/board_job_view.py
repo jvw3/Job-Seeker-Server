@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Board, BoardJob, Job, Company
+from jobseekerapi.models import Board, BoardJob, Job, Company, Interview
 
 
 class BoardJobView(ViewSet):
@@ -82,7 +82,12 @@ class BoardJobView(ViewSet):
         board_job.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+class InterviewSerializer(serializers.ModelSerializer):
 
+
+    class Meta:
+        model = Interview
+        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_feedback")
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
@@ -99,7 +104,8 @@ class BoardJobSerializer(serializers.ModelSerializer):
 
     company = CompanySerializer(many=False)
     job = JobSerializer(many=False)
+    interviews = InterviewSerializer(many=True)
 
     class Meta:
         model = BoardJob
-        fields = ("id", "job", "company", "has_interviewed", "interview_rounds", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category_state")
+        fields = ("id", "job", "company", "has_interviewed", "interview_rounds", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category_state", "interviews")

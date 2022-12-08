@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import InterviewPrep, Seeker, CustomPrepInfo
+from jobseekerapi.models import InterviewPrep, Seeker, CustomPrepInfo, Question
 
 
 class InterviewPrepView(ViewSet):
@@ -56,6 +56,10 @@ class InterviewPrepView(ViewSet):
         interview_prep.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ("id", "content")
 
 class CustomPrepSerializer(serializers.ModelSerializer):
 
@@ -70,6 +74,7 @@ class SeekerSerializer(serializers.ModelSerializer):
 class InterviewPrepSerializer(serializers.ModelSerializer):
     seeker = SeekerSerializer(many=False)
     custom_preps = CustomPrepSerializer(many=True)
+    questions = QuestionSerializer(many=True)
     class Meta:
         model = InterviewPrep
-        fields = ("id", "seeker", "company_info", "custom_preps")
+        fields = ("id", "seeker", "company_info", "custom_preps", "questions")
