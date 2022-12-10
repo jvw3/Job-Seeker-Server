@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Board, BoardJob, Job, Company, Interview
+from jobseekerapi.models import Board, BoardJob, Job, Company, Interview, Seeker
 
 
 class BoardJobView(ViewSet):
@@ -27,8 +27,34 @@ class BoardJobView(ViewSet):
         return Response(serializer.data)
 
     def list(self, request):
-        board_jobs = BoardJob.objects.all()
-        serializer = BoardJobSerializer(board_jobs, many=True)
+        filtered_board_jobs = BoardJob.objects.all()
+        seeker = Seeker.objects.get(user=request.auth.user)
+
+
+        # This query params will restrict users from accessing each others boards. Any request made to a board that is not theirs will result in a 403 Forbidden Status code.
+        if "board" in request.query_params:
+            query_value = request.query_params["board"]
+
+            try:
+                board = Board.objects.get(pk=query_value)
+            except:
+                return Response(
+                {"message": "The board you are searching for does not exist."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+
+            if seeker.id == board.seeker.id:
+                try:
+                    filtered_board_jobs = BoardJob.objects.filter(board=board.id)
+                except:
+                    return Response(
+                {"message": "You don't have access to this board."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+
+        serializer = BoardJobSerializer(filtered_board_jobs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):

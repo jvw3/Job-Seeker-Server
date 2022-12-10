@@ -15,6 +15,9 @@ class BoardView(ViewSet):
         """Handle GET requests for a single Board
         Returns:
             Response -- JSON Serialized Board"""
+
+        seeker = Seeker.objects.get(user=request.auth.user)
+
         try:
             board = Board.objects.get(pk=pk)
         except:
@@ -23,11 +26,22 @@ class BoardView(ViewSet):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        serializer = BoardSerializer(board)
-        return Response(serializer.data)
+        if seeker.id == board.seeker.id:
+            serializer = BoardSerializer(board)
+            return Response(serializer.data)
+        else:
+            return Response(
+                {"message": "You don't have access to this board."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
 
     def list(self, request):
-        boards = Board.objects.all()
+
+        seeker = Seeker.objects.get(user=request.auth.user)
+
+        boards = Board.objects.filter(seeker=seeker.id)
+
         serializer = BoardSerializer(boards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -85,7 +99,7 @@ class BoardJobSerializer(serializers.ModelSerializer):
 class SeekerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Seeker
-        fields = ("id", "full_name", "username", "current_role", "elevator_pitch")
+        fields = ("id", "user", "full_name", "username", "current_role", "elevator_pitch")
 
 
 class CategorySerializer(serializers.ModelSerializer):
