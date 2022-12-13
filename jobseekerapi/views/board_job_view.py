@@ -39,8 +39,6 @@ class BoardJobView(ViewSet):
             serializer = BoardJobSerializer(filtered_board_jobs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        # if "seeker" in request.query_params:
-        #     filtered_board_jobs = BoardJob.objects.filter(BoardJob.board.seeker==seeker.id)
 
         if "board" in request.query_params:
             board_query_value = request.query_params["board"]
