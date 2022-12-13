@@ -3,47 +3,54 @@
         "model": "jobseekerapi.company",
         "pk": 1,
         "fields": {
-            "name": "Nashville Software School"
+            "name": "Custom"
         }
     },
     {
         "model": "jobseekerapi.company",
         "pk": 2,
         "fields": {
-            "name": "FortyAU"
+            "name": "Nashville Software School"
         }
     },
     {
         "model": "jobseekerapi.company",
         "pk": 3,
         "fields": {
-            "name": "EventBrite"
+            "name": "FortyAU"
         }
     },
     {
         "model": "jobseekerapi.company",
         "pk": 4,
         "fields": {
-            "name": "Built Technologies"
+            "name": "EventBrite"
         }
     },
     {
         "model": "jobseekerapi.company",
         "pk": 5,
         "fields": {
-            "name": "Vanderbilt University"
+            "name": "Built Technologies"
         }
     },
     {
         "model": "jobseekerapi.company",
         "pk": 6,
         "fields": {
-            "name": "AllianceBernstein"
+            "name": "Vanderbilt University"
         }
     },
     {
         "model": "jobseekerapi.company",
         "pk": 7,
+        "fields": {
+            "name": "AllianceBernstein"
+        }
+    },
+    {
+        "model": "jobseekerapi.company",
+        "pk": 8,
         "fields": {
             "name": "Change Healthcare"
         }

@@ -3,47 +3,54 @@
         "model": "jobseekerapi.job",
         "pk": 1,
         "fields": {
-            "title": "Junior Software Engineer"
+            "title": "Custom"
         }
     },
     {
         "model": "jobseekerapi.job",
         "pk": 2,
         "fields": {
-            "title": "Junior Software Developer"
+            "title": "Junior Software Engineer"
         }
     },
     {
         "model": "jobseekerapi.job",
         "pk": 3,
         "fields": {
-            "title": "Software Engineer Apprentice"
+            "title": "Junior Software Developer"
         }
     },
     {
         "model": "jobseekerapi.job",
         "pk": 4,
         "fields": {
-            "title": "Software Engineer Intern"
+            "title": "Software Engineer Apprentice"
         }
     },
     {
         "model": "jobseekerapi.job",
         "pk": 5,
         "fields": {
-            "title": "Software Developer Intern"
+            "title": "Software Engineer Intern"
         }
     },
     {
         "model": "jobseekerapi.job",
         "pk": 6,
         "fields": {
-            "title": "Software Engineer I"
+            "title": "Software Developer Intern"
         }
     },
     {
         "model": "jobseekerapi.job",
         "pk": 7,
+        "fields": {
+            "title": "Software Engineer I"
+        }
+    },
+    {
+        "model": "jobseekerapi.job",
+        "pk": 8,
         "fields": {
             "title": "Software Developer I"
         }

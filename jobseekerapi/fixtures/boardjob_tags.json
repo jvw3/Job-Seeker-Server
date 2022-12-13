@@ -1,0 +1,38 @@
+[
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 2,
+        "fields": {
+            "seeker": 2,
+            "board_job": 1,
+            "tag": 2
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 2,
+        "fields": {
+            "seeker": 2,
+            "board_job": 1,
+            "tag": 2
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 3,
+        "fields": {
+            "seeker": 2,
+            "board_job": 1,
+            "tag": 3
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 4,
+        "fields": {
+            "seeker": 2,
+            "board_job": 1,
+            "tag": 4
+        }
+    }
+]

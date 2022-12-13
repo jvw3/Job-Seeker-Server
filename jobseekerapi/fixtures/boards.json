@@ -1,12 +1,1 @@
-[
-    {
-        "model": "jobseekerapi.board",
-        "pk": 1,
-        "fields": {
-            "seeker": 2,
-            "title": "First tech job search!!!",
-            "goal": "I want to find my first tech job! Open to all entry level developer roles. ",
-            "requirements": "Job needs to be remote, and have a great culture!"
-        }
-    }
-]
+[{"model": "jobseekerapi.board", "pk": 1, "fields": {"seeker": 2, "title": "First tech job search!!!", "goal": "I want to find my first tech job! Open to all entry level developer roles. ", "requirements": "Job needs to be remote, and have a great culture!", "date_started": "2023-12-10", "is_active": true}}, {"model": "jobseekerapi.board", "pk": 2, "fields": {"seeker": 3, "title": "My great new Job", "goal": "Find a higher paying Job", "requirements": "Salary must be 100k/yr", "date_started": "2022-12-10", "is_active": true}}]

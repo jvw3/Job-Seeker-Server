@@ -1,0 +1,79 @@
+[
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 1,
+        "fields": {
+            "name": "Healthcare"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 2,
+        "fields": {
+            "name": "Consulting"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 3,
+        "fields": {
+            "name": "Education"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 4,
+        "fields": {
+            "name": "Events"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 5,
+        "fields": {
+            "name": "Government"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 6,
+        "fields": {
+            "name": "Finance"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 7,
+        "fields": {
+            "name": "Contract"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 8,
+        "fields": {
+            "name": "Full Time"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 8,
+        "fields": {
+            "name": "Part Time"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 8,
+        "fields": {
+            "name": "1099"
+        }
+    },
+    {
+        "model": "jobseekerapi.tag",
+        "pk": 8,
+        "fields": {
+            "name": "W2"
+        }
+    }
+]
