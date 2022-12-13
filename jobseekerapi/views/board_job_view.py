@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Board, BoardJob, Job, Company, Interview, Seeker
+from jobseekerapi.models import Board, BoardJob, Job, Company, Interview, Seeker, Category, Tag
 
 
 class BoardJobView(ViewSet):
@@ -32,11 +32,21 @@ class BoardJobView(ViewSet):
 
 
         # This query params will restrict users from accessing each others boards. Any request made to a board that is not theirs will result in a 403 Forbidden Status code.
+
+        # if "board" and "category" in request.query_params:
+        #     fd
+        if "board" and "category" and "seeker" not in request.query_params:
+            serializer = BoardJobSerializer(filtered_board_jobs, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        # if "seeker" in request.query_params:
+        #     filtered_board_jobs = BoardJob.objects.filter(BoardJob.board.seeker==seeker.id)
+
         if "board" in request.query_params:
-            query_value = request.query_params["board"]
+            board_query_value = request.query_params["board"]
 
             try:
-                board = Board.objects.get(pk=query_value)
+                board = Board.objects.get(pk=board_query_value)
             except:
                 return Response(
                 {"message": "The board you are searching for does not exist."},
@@ -44,14 +54,34 @@ class BoardJobView(ViewSet):
             )
 
 
-            if seeker.id == board.seeker.id:
-                try:
+        if "category" in request.query_params:
+                    category_query_value = request.query_params["category"]
+
+                    try:
+                        category = Category.objects.get(pk=category_query_value)
+                    except:
+                        return Response(
+                        {"message": "The Category you are searching for does not exist."},
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
+
+
+        if seeker.id == board.seeker.id:
+            if "board" and "category" in request.query_params:
+                    filter_for_board = BoardJob.objects.filter(board=board.id)
+                    filtered_board_jobs = filter_for_board.filter(category=category.id)
+                    serializer = BoardJobSerializer(filtered_board_jobs, many=True)
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+            elif "board" in request.query_params:
                     filtered_board_jobs = BoardJob.objects.filter(board=board.id)
-                except:
-                    return Response(
-                {"message": "You don't have access to this board."},
-                status=status.HTTP_403_FORBIDDEN,
-            )
+                    serializer = BoardJobSerializer(filtered_board_jobs, many=True)
+                    return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(
+                        {"message": "You do not have access to the jobs of this board."},
+                        status=status.HTTP_403_FORBIDDEN,
+                    )
+
 
 
         serializer = BoardJobSerializer(filtered_board_jobs, many=True)
@@ -59,22 +89,29 @@ class BoardJobView(ViewSet):
 
     def create(self, request):
 
-        job = Job.objects.get(pk=request.data["job_id"])
-        company = Company.objects.get(pk=request.data["company_id"])
-        board = Board.objects.get(pk=request.data["board_id"])
+        job = Job.objects.get(pk=request.data["job"])
+        company = Company.objects.get(pk=request.data["company"])
+        board = Board.objects.get(pk=request.data["board"])
+        category = Category.objects.get(pk=request.data["board"])
 
         board_job = BoardJob.objects.create(
             job=job,
+            custom_job=request.data["custom_job"],
             company=company,
+            custom_company=request.data["custom_company"],
+            has_applied=request.data["has_applied"],
             has_interviewed=request.data["has_interviewed"],
             interview_rounds=request.data["interview_rounds"],
+            received_offer=request.data["received_offer"],
+            salary=request.data["salary"],
+            location=request.data["location"],
             salary_rating=request.data["salary_rating"],
             location_rating=request.data["location_rating"],
             culture_rating=request.data["culture_rating"],
             leadership_rating=request.data["leadership_rating"],
             team_rating=request.data["team_rating"],
             board=board,
-            category_state=request.data["category_state"]
+            category=category
         )
 
         serializer = BoardJobSerializer(board_job)
@@ -108,6 +145,13 @@ class BoardJobView(ViewSet):
         board_job.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+
+class BoardSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Board
+        fields = ("id", "seeker")
+
 class InterviewSerializer(serializers.ModelSerializer):
 
 
@@ -117,6 +161,10 @@ class InterviewSerializer(serializers.ModelSerializer):
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
+        fields = ("id", "name")
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
         fields = ("id", "name")
 
 
@@ -131,7 +179,9 @@ class BoardJobSerializer(serializers.ModelSerializer):
     company = CompanySerializer(many=False)
     job = JobSerializer(many=False)
     interviews = InterviewSerializer(many=True)
+    tags = TagSerializer(many=True)
+    board = BoardSerializer(many=False)
 
     class Meta:
         model = BoardJob
-        fields = ("id", "job", "company", "has_interviewed", "interview_rounds", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category_state", "interviews")
+        fields = ("id", "job", "custom_job", "company", "custom_company", "has_applied", "has_interviewed", "interview_rounds", "received_offer", "salary", "location", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category", "interviews", "tags")
