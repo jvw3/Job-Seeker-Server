@@ -8,6 +8,7 @@ class Seeker(models.Model):
     bio = models.TextField(max_length=5000, blank=True)
     current_role = models.CharField(max_length=100)
     elevator_pitch = models.TextField(max_length=1000, blank=True)
+    tags = models.ManyToManyField("Tag", through="BoardJobTag", related_name='tags_from_seeker')
 
     @property
     def full_name(self):
