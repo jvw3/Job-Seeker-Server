@@ -12,6 +12,7 @@ python3 manage.py loaddata questions
 python3 manage.py loaddata companies
 python3 manage.py loaddata categories
 python3 manage.py loaddata jobs
+python3 manage.py loaddata tags
 python3 manage.py loaddata boards
 python3 manage.py loaddata interview_preps
 python3 manage.py loaddata board_jobs
@@ -20,3 +21,4 @@ python3 manage.py loaddata interviews
 python3 manage.py loaddata prep_questions
 python3 manage.py loaddata priority_rank
 python3 manage.py loaddata board_categories
+python3 manage.py loaddata boardjob_tags
