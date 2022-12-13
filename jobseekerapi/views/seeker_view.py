@@ -63,4 +63,4 @@ class SeekerSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     class Meta:
         model = Seeker
-        fields = ('id', 'user', "full_name", 'bio', "elevator_pitch", "boards")
+        fields = ('id', 'user', "full_name", 'bio', "elevator_pitch", "boards", "tags")
