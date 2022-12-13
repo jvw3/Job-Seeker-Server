@@ -94,7 +94,7 @@ class BoardJobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoardJob
-        fields = ("id", "job", "company", "has_interviewed", "interview_rounds", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category_state")
+        fields = fields = ("id", "job", "custom_job", "company", "custom_company", "has_applied", "has_interviewed", "interview_rounds", "received_offer", "salary", "location", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category", "interviews", "tags")
 
 class SeekerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -115,4 +115,4 @@ class BoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Board
-        fields = ("id", "seeker", "title", "goal", "requirements", "categories", "jobs")
+        fields = ("id", "seeker", "title", "goal", "requirements", "date_started", "date_ended", "is_active", "categories", "jobs")

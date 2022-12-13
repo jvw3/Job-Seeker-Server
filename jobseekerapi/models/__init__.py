@@ -11,3 +11,5 @@ from .prep_question import PrepQuestion
 from .question import Question
 from .seeker import Seeker
 from .priority_rank import PriorityRank
+from .board_job_tag import BoardJobTag
+from .tag import Tag

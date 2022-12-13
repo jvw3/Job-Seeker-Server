@@ -7,9 +7,15 @@ class BoardJob(models.Model):
 
 
     job = models.ForeignKey("Job", on_delete=models.CASCADE)
+    custom_job = models.CharField(max_length=100)
     company = models.ForeignKey("Company", on_delete=models.CASCADE)
+    custom_company = models.CharField(max_length=100)
+    has_applied = models.BooleanField()
     has_interviewed = models.BooleanField()
     interview_rounds = models.IntegerField(null=True, blank=True)
+    received_offer = models.BooleanField()
+    salary = models.IntegerField()
+    location = models.CharField(max_length=70)
     salary_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
     location_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
     culture_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
@@ -17,4 +23,5 @@ class BoardJob(models.Model):
     team_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
     job_score = models.IntegerField(null=True, blank=True)
     board = models.ForeignKey("Board", on_delete=models.CASCADE, related_name="jobs")
-    category_state = models.CharField(max_length=50, blank=True)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
+    tags = models.ManyToManyField("Tag", through="BoardJobTag", related_name='tags')
