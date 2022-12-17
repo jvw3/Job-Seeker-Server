@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Board, BoardJob, Job, Company, Interview, Seeker, Category, Tag
+from jobseekerapi.models import Board, BoardJob, Job, Company, Interview, Seeker, Category, Tag, BoardJobTag
 
 
 class BoardJobView(ViewSet):
@@ -30,17 +30,25 @@ class BoardJobView(ViewSet):
         filtered_board_jobs = BoardJob.objects.all()
         seeker = Seeker.objects.get(user=request.auth.user)
 
+#         my_str = 'apple, egg, avocado'
+# list_of_strings = ['apple', 'banana', 'kiwi']
+
+# # ✅ check if ONE of multiple strings exists in another string
+
+# if any(substring in my_str for substring in list_of_strings):
+#     # 👇️ this runs
+#     print('At least one of the multiple strings exists in the string')
+# else:
+#     print('None of the multiple strings exist in the string')
 
         # This query params will restrict users from accessing each others boards. Any request made to a board that is not theirs will result in a 403 Forbidden Status code.
-
-        # if "board" and "category" in request.query_params:
-        #     fd
-        if "board" and "category" and "seeker" not in request.query_params:
+        query_params_list = ["board", "category", "seeker"]
+        if all(substring in request.query_params for substring in query_params_list):
             serializer = BoardJobSerializer(filtered_board_jobs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-        if "board" in request.query_params:
+        # Check if "board" is in query params on request
+        elif "board" in request.query_params:
             board_query_value = request.query_params["board"]
 
             try:
@@ -51,7 +59,7 @@ class BoardJobView(ViewSet):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-
+        # Check if "board" is in query params on request
         if "category" in request.query_params:
                     category_query_value = request.query_params["category"]
 
@@ -63,7 +71,7 @@ class BoardJobView(ViewSet):
                         status=status.HTTP_404_NOT_FOUND,
                     )
 
-
+        # If seeker.id is equal to seeker id of the board, then we
         if seeker.id == board.seeker.id:
             if "board" and "category" in request.query_params:
                     filter_for_board = BoardJob.objects.filter(board=board.id)
@@ -87,10 +95,18 @@ class BoardJobView(ViewSet):
 
     def create(self, request):
 
+        seeker = Seeker.objects.get(user=request.auth.user)
         job = Job.objects.get(pk=request.data["job"])
         company = Company.objects.get(pk=request.data["company"])
         board = Board.objects.get(pk=request.data["board"])
-        category = Category.objects.get(pk=request.data["board"])
+        category = Category.objects.get(pk=request.data["category"])
+
+        tags = request.data["tags"]
+        for tag in tags:
+            try:
+                Tag.objects.get(pk=tag)
+            except Category.DoesNotExist:
+                return Response({"message": "The category you specified does not exist"}, status = status.HTTP_404_NOT_FOUND)
 
         board_job = BoardJob.objects.create(
             job=job,
@@ -112,31 +128,50 @@ class BoardJobView(ViewSet):
             category=category
         )
 
+        for tag in tags:
+            tag_to_assign = Tag.objects.get(pk=tag)
+            board_job_tag = BoardJobTag()
+            board_job_tag.seeker = seeker
+            board_job_tag.board_job = board_job
+            board_job_tag.tag = tag_to_assign
+            board_job_tag.save()
+
         serializer = BoardJobSerializer(board_job)
         return Response(serializer.data)
 
     def update(self, request, pk):
 
-        board = Board.objects.get(pk=request.data["board_id"])
-        job = Job.objects.get(pk=request.data["job_id"])
-        company = Company.objects.get(pk=request.data["company_id"])
-
         board_job = BoardJob.objects.get(pk=pk)
+        job = Job.objects.get(pk=request.data["job"])
+        company = Company.objects.get(pk=request.data["company"])
+        board = Board.objects.get(pk=request.data["board"])
+        category = Category.objects.get(pk=request.data["category"])
+
+
+
         board_job.job = job
+        board_job.custom_job = request.data["custom_job"]
         board_job.company = company
+        board_job.custom_company = request.data["custom_company"]
+        board_job.has_applied = request.data["has_applied"]
         board_job.has_interviewed = request.data["has_interviewed"]
         board_job.interview_rounds = request.data["interview_rounds"]
+        board_job.received_offer = request.data["received_offer"]
+        board_job.received_offer = request.data["received_offer"]
+        board_job.salary = request.data["salary"]
+        board_job.location = request.data["location"]
         board_job.salary_rating = request.data["salary_rating"]
         board_job.location_rating = request.data["location_rating"]
         board_job.culture_rating = request.data["culture_rating"]
         board_job.leadership_rating = request.data["leadership_rating"]
         board_job.team_rating = request.data["team_rating"]
         board_job.board = board
-        board_job.category_state = request.data["category_state"]
-
+        board_job.category = category
         board_job.save()
 
+
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
 
     def destroy(self, request, pk):
         board_job = BoardJob.objects.get(pk=pk)
@@ -182,4 +217,5 @@ class BoardJobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoardJob
-        fields = ("id", "job", "custom_job", "company", "custom_company", "has_applied", "has_interviewed", "interview_rounds", "received_offer", "salary", "location", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category", "interviews", "tags")
+        fields = ("id", "job", "custom_job", "company", "custom_company", "has_applied", "has_interviewed", "interview_rounds", "received_offer", "salary", "location", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category", "interviews", "tags", "joined")
+

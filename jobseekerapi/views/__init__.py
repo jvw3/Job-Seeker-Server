@@ -1,4 +1,4 @@
-from .auth import login_user, register_user
+from .auth import login_user, register_user, current_seeker
 from .board_view import BoardView
 from .category_view import CategoryView
 from .company_view import CompanyView
@@ -9,3 +9,6 @@ from .custom_preps import CustomPrepView
 from .board_job_view import BoardJobView
 from .interview_view import InterviewView
 from .seeker_view import SeekerView
+from .tag_view import TagView
+from .board_job_tag_view import BoardJobTagView
+from .board_category_view import BoardCategoryView
