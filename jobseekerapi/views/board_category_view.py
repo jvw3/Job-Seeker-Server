@@ -5,10 +5,10 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Category
+from jobseekerapi.models import Category, BoardCategory, Board
 
 
-class CategoryView(ViewSet):
+class BoardCategoryView(ViewSet):
     """Board View"""
 
     def retrieve(self, request, pk):
@@ -27,18 +27,37 @@ class CategoryView(ViewSet):
         return Response(serializer.data)
 
     def list(self, request):
-        categories = Category.objects.all()
-        serializer = BoardCategorySerializer(categories, many=True)
+        filtered_board_categories = BoardCategory.objects.all()
+
+        if "board" in request.query_params:
+            board_query_value = request.query_params["board"]
+
+            try:
+                board = Board.objects.get(pk=board_query_value)
+                filtered_board_categories = BoardCategory.objects.filter(board=board.id)
+
+            except:
+                return Response(
+                {"message": "The board job you are searching for does not exist."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = BoardCategorySerializer(filtered_board_categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
 
-        category = Category.objects.create(
-            name=request.data["name"]
-        )
+        board = Board.objects.get(pk=request.data["board"])
+        category = Category.objects.get(pk=request.data["category"])
 
-        serializer = BoardCategorySerializer(category)
+        board_category = BoardCategory()
+        board_category.board = board
+        board_category.category = category
+        board_category.save()
+
+        serializer = BoardCategorySerializer(board_category)
         return Response(serializer.data)
+
 
     def update(self, request, pk):
 
@@ -49,14 +68,18 @@ class CategoryView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
-        category = Category.objects.get(pk=pk)
-        category.delete()
+        board_category = BoardCategory.objects.get(pk=pk)
+        board_category.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-class BoardCategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("id", "name")
+
+class BoardCategorySerializer(serializers.ModelSerializer):
+    category = CategorySerializer(many=False)
+    class Meta:
+        model = BoardCategory
+        fields = ("id", "board", "category")

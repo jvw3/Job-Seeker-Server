@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Board, Category, Seeker, Company, Board, BoardJob, Job
+from jobseekerapi.models import Board, Category, Seeker, Company, Board, BoardJob, Job, BoardCategory
+from datetime import date
 
 
 class BoardView(ViewSet):
@@ -49,12 +50,28 @@ class BoardView(ViewSet):
 
         seeker = Seeker.objects.get(user=request.auth.user)
 
+        categories = request.data["categories"]
+        for category in categories:
+            try:
+                Category.objects.get(pk=category)
+            except Category.DoesNotExist:
+                return Response({"message": "The category you specified does not exist"}, status = status.HTTP_404_NOT_FOUND)
+
         board = Board.objects.create(
             seeker=seeker,
             title=request.data["title"],
             goal=request.data["goal"],
             requirements=request.data["requirements"],
+            date_started=date.today(),
+            is_active=True
         )
+
+        for category in categories:
+            category_to_assign = Category.objects.get(pk=category)
+            board_category = BoardCategory()
+            board_category.board = board
+            board_category.category = category_to_assign
+            board_category.save()
 
         serializer = BoardSerializer(board)
         return Response(serializer.data)

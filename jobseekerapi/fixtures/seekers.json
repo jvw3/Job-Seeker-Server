@@ -1,1 +1,32 @@
-[{"model": "jobseekerapi.seeker", "pk": 1, "fields": {"user": 1, "bio": "", "current_role": "App Administrator", "elevator_pitch": ""}}, {"model": "jobseekerapi.seeker", "pk": 2, "fields": {"user": 2, "bio": "Pro Athlete turned Software Developer", "current_role": "Apprentice Software Developer", "elevator_pitch": ""}}, {"model": "jobseekerapi.seeker", "pk": 3, "fields": {"user": 3, "bio": "", "current_role": "Junior Software Engineer", "elevator_pitch": ""}}]
+[
+  {
+    "model": "jobseekerapi.seeker",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "bio": "",
+      "current_role": "App Administrator",
+      "elevator_pitch": ""
+    }
+  },
+  {
+    "model": "jobseekerapi.seeker",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "bio": "Pro Athlete turned Software Developer",
+      "current_role": "Apprentice Software Developer",
+      "elevator_pitch": ""
+    }
+  },
+  {
+    "model": "jobseekerapi.seeker",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "bio": "",
+      "current_role": "Junior Software Engineer",
+      "elevator_pitch": ""
+    }
+  }
+]

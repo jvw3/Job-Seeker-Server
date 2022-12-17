@@ -25,3 +25,12 @@ class BoardJob(models.Model):
     board = models.ForeignKey("Board", on_delete=models.CASCADE, related_name="jobs")
     category = models.ForeignKey("Category", on_delete=models.CASCADE)
     tags = models.ManyToManyField("Tag", through="BoardJobTag", related_name='tags')
+
+
+    @property
+    def joined(self):
+        return self.__joined
+
+    @joined.setter
+    def joined(self, value):
+        self.__joined = value
