@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import InterviewPrep, Seeker, CustomPrepInfo, Question
+from jobseekerapi.models import InterviewPrep, Seeker, CustomPrepInfo, Question, Interview
 
 
 class InterviewPrepView(ViewSet):
@@ -71,10 +71,17 @@ class SeekerSerializer(serializers.ModelSerializer):
         model = Seeker
         fields = ("id","current_role", "elevator_pitch")
 
+class InterviewSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Interview
+        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_feedback")
+
 class InterviewPrepSerializer(serializers.ModelSerializer):
     seeker = SeekerSerializer(many=False)
     custom_preps = CustomPrepSerializer(many=True)
     questions = QuestionSerializer(many=True)
+    view = InterviewSerializer(many=False)
     class Meta:
         model = InterviewPrep
         fields = ("id", "seeker", "company_info", "custom_preps", "questions")

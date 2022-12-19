@@ -12,3 +12,41 @@ class Board(models.Model):
     date_ended = models.DateField(null=True, blank=True, default=None)
     is_active = models.BooleanField()
     categories = models.ManyToManyField("Category", through="BoardCategory", related_name='categories')
+
+    @property
+    def board_application_count(self):
+        all_jobs = self.jobs.all()
+        interview_count = 0
+        for job in all_jobs:
+            if job.has_applied == True:
+                interview_count += 1
+        return interview_count
+
+    @property
+    def board_offer_count(self):
+        all_jobs = self.jobs.all()
+        offer_count = 0
+        for job in all_jobs:
+            if job.received_offer == True:
+                offer_count += 1
+        return offer_count
+
+    @property
+    def board_completed_interview_count(self):
+        all_jobs = self.jobs.all()
+        interview_count = 0
+        for job in all_jobs:
+            all_interviews = job.interviews.all()
+            for interview in all_interviews:
+                if interview.is_complete == True:
+                    interview_count += 1
+        return interview_count
+
+    @property
+    def board_offer_count(self):
+        all_jobs = self.jobs.all()
+        offer_count = 0
+        for job in all_jobs:
+            if job.received_offer == True:
+                    offer_count += 1
+        return offer_count

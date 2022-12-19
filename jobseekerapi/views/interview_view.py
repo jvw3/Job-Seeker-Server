@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Interview, BoardJob, InterviewPrep
+from jobseekerapi.models import Interview, BoardJob, InterviewPrep, Company, Job, CustomPrepInfo, Question
 
 
 class InterviewView(ViewSet):
@@ -27,8 +27,23 @@ class InterviewView(ViewSet):
         return Response(serializer.data)
 
     def list(self, request):
-        interviews = Interview.objects.all()
-        serializer = InterviewSerializer(interviews, many=True)
+        filtered_interviews = Interview.objects.all()
+
+        if "boardjob" in request.query_params:
+                    query_value = request.query_params["boardjob"]
+
+                    try:
+                        board_job = BoardJob.objects.get(pk=query_value)
+                        filtered_interviews = Interview.objects.filter(board_job=board_job.id)
+                        serializer = InterviewSerializer(filtered_interviews, many=True)
+                        return Response(serializer.data, status=status.HTTP_200_OK)
+                    except:
+                        return Response(
+                        {"message": "The board job you are querying for does not exist."},
+                        status=status.HTTP_404_NOT_FOUND,
+                    )
+
+        serializer = InterviewSerializer(filtered_interviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
@@ -68,15 +83,46 @@ class InterviewView(ViewSet):
         interview.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ("id", "content")
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ("id", "name")
 
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Job
+        fields = ("id", "title")
+
+class CustomPrepSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomPrepInfo
+        fields = ("id", "title", "description", "content")
 class InterviewPrepSerializer(serializers.ModelSerializer):
+    custom_preps = CustomPrepSerializer(many=True)
+    questions = QuestionSerializer(many=True)
 
     class Meta:
         model = InterviewPrep
-        fields = ("id", "company_info", "custom_preps")
+        fields = ("id", "seeker", "company_info", "custom_preps", "questions")
+
+
+class BoardJobSerializer(serializers.ModelSerializer):
+
+    job = JobSerializer(many=False)
+    company = CompanySerializer(many=False)
+
+    class Meta:
+        model = BoardJob
+        fields = ("id", "job", "custom_job", "company", "custom_company")
+
 
 class InterviewSerializer(serializers.ModelSerializer):
-
+    board_job = BoardJobSerializer(many=False)
     prep = InterviewPrepSerializer(many=False)
     class Meta:
         model = Interview
