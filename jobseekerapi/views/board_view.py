@@ -132,4 +132,4 @@ class BoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Board
-        fields = ("id", "seeker", "title", "goal", "requirements", "date_started", "date_ended", "is_active", "categories", "jobs")
+        fields = ("id", "seeker", "title", "goal", "requirements", "date_started", "date_ended", "is_active", "categories", "jobs", "board_application_count", "board_completed_interview_count", "board_offer_count")

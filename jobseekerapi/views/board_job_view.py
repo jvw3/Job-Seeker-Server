@@ -30,20 +30,10 @@ class BoardJobView(ViewSet):
         filtered_board_jobs = BoardJob.objects.all()
         seeker = Seeker.objects.get(user=request.auth.user)
 
-#         my_str = 'apple, egg, avocado'
-# list_of_strings = ['apple', 'banana', 'kiwi']
-
-# # ✅ check if ONE of multiple strings exists in another string
-
-# if any(substring in my_str for substring in list_of_strings):
-#     # 👇️ this runs
-#     print('At least one of the multiple strings exists in the string')
-# else:
-#     print('None of the multiple strings exist in the string')
 
         # This query params will restrict users from accessing each others boards. Any request made to a board that is not theirs will result in a 403 Forbidden Status code.
         query_params_list = ["board", "category", "seeker"]
-        if all(substring in request.query_params for substring in query_params_list):
+        if all(substring not in request.query_params for substring in query_params_list):
             serializer = BoardJobSerializer(filtered_board_jobs, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
