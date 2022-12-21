@@ -6,6 +6,7 @@ from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from jobseekerapi.models import Interview, BoardJob, InterviewPrep, Company, Job, CustomPrepInfo, Question
+from datetime import datetime
 
 
 class InterviewView(ViewSet):
@@ -46,15 +47,17 @@ class InterviewView(ViewSet):
         serializer = InterviewSerializer(filtered_interviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
     def create(self, request):
 
-        interview_prep = InterviewPrep.objects.get(pk=request.data["prep_id"])
-        board_job = BoardJob.objects.get(pk=request.data["board_job_id"])
+        # interview_prep = InterviewPrep.objects.get(pk=request.data["prep_id"])
+        board_job = BoardJob.objects.get(pk=request.data["board_job"])
+        unformatted_date = request.data["date"]
+        formatted_date = datetime.strptime(unformatted_date, "%Y-%m-%dT%H:%M:%S")
 
         interview = Interview.objects.create(
             board_job=board_job,
-            prep=interview_prep,
-            date=request.data["date"],
+            date=formatted_date,
             is_complete = request.data["is_complete"],
             interview_feedback = request.data["interview_feedback"],
         )

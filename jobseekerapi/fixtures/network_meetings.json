@@ -1,0 +1,26 @@
+[
+  {
+    "model": "jobseekerapi.networkmeeting",
+    "pk": 1,
+    "fields": {
+      "contact": 1,
+      "description": "Call to check in!",
+      "meeting_date": "2022-12-29",
+      "notes": "Great call! They can help me better understand python.",
+      "is_complete": true,
+      "meeting_type": 3
+    }
+  },
+  {
+    "model": "jobseekerapi.networkmeeting",
+    "pk": 2,
+    "fields": {
+      "contact": 1,
+      "description": "Talking about Career Journey",
+      "meeting_date": "2022-12-30",
+      "notes": "Gave me great info to get ready to apply for job!",
+      "is_complete": true,
+      "meeting_type": 3
+    }
+  }
+]

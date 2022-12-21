@@ -13,3 +13,6 @@ from .seeker import Seeker
 from .priority_rank import PriorityRank
 from .board_job_tag import BoardJobTag
 from .tag import Tag
+from .contact import Contact
+from .network_meeting import NetworkMeeting
+from .meeting_type import MeetingType

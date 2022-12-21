@@ -1,0 +1,17 @@
+[
+  {
+    "model": "jobseekerapi.contact",
+    "pk": 1,
+    "fields": {
+      "name": "Jack Jones",
+      "current_role": "Software Engineer III",
+      "current_company": "Apple",
+      "last_contact": "2022-11-26",
+      "connection_level": 5,
+      "linked_in": "www.linkedin.com",
+      "number_of_contacts": 2,
+      "notes": "Great person. Will be helpful",
+      "seeker": 2
+    }
+  }
+]
