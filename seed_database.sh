@@ -22,3 +22,6 @@ python3 manage.py loaddata prep_questions
 python3 manage.py loaddata priority_rank
 python3 manage.py loaddata board_categories
 python3 manage.py loaddata boardjob_tags
+python3 manage.py loaddata contacts
+python3 manage.py loaddata meeting_types
+python3 manage.py loaddata network_meetings

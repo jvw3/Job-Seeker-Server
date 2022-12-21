@@ -1,0 +1,37 @@
+[
+  {
+    "model": "jobseekerapi.meetingtype",
+    "pk": 1,
+    "fields": {
+      "name": "Recruiting Call"
+    }
+  },
+  {
+    "model": "jobseekerapi.meetingtype",
+    "pk": 2,
+    "fields": {
+      "name": "Call - For Questions"
+    }
+  },
+  {
+    "model": "jobseekerapi.meetingtype",
+    "pk": 3,
+    "fields": {
+      "name": "Mentorship Call"
+    }
+  },
+  {
+    "model": "jobseekerapi.meetingtype",
+    "pk": 4,
+    "fields": {
+      "name": "In-Person Meeting"
+    }
+  },
+  {
+    "model": "jobseekerapi.meetingtype",
+    "pk": 5,
+    "fields": {
+      "name": "Call - First Meeting"
+    }
+  }
+]
