@@ -16,3 +16,4 @@ class Seeker(models.Model):
     @property
     def username(self):
         return f'{self.user.username}'
+

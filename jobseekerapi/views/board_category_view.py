@@ -50,9 +50,19 @@ class BoardCategoryView(ViewSet):
         board = Board.objects.get(pk=request.data["board"])
         category = Category.objects.get(pk=request.data["category"])
 
+        board_categories = BoardCategory.objects.filter(board=board.id)
+
         board_category = BoardCategory()
         board_category.board = board
         board_category.category = category
+
+        for bc in board_categories:
+            if bc.category == board_category.category:
+                return Response(
+                {"message": "This Category already exists on your board! Please choose another."},
+                status=status.HTTP_405_METHOD_NOT_ALLOWED,
+            )
+
         board_category.save()
 
         serializer = BoardCategorySerializer(board_category)

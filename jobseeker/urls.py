@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from jobseekerapi.views import BoardView, CategoryView, CompanyView, QuestionView, register_user, login_user, current_seeker, JobView, InterviewPrepView, CustomPrepView, BoardJobView, InterviewView, SeekerView, TagView, BoardJobTagView, BoardCategoryView
+from jobseekerapi.views import BoardView, CategoryView, CompanyView, QuestionView, register_user, login_user, current_seeker, JobView, InterviewPrepView, CustomPrepView, BoardJobView, InterviewView, SeekerView, TagView, BoardJobTagView, BoardCategoryView, InterviewPrepView, ContactView
 
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -30,10 +30,12 @@ router.register(r'preps', InterviewPrepView, 'prep')
 router.register(r'customs', CustomPrepView, 'custom')
 router.register(r'boardjobs', BoardJobView, 'boardjob')
 router.register(r'interviews', InterviewView, 'interview')
+router.register(r'interviewpreps', InterviewPrepView, 'interviewprep')
 router.register(r'seekers', SeekerView, 'seeker')
 router.register(r'tags', TagView, 'tag')
 router.register(r'boardjobtags', BoardJobTagView, 'boardjobtag')
 router.register(r'boardcategories', BoardCategoryView, 'boardcategory')
+router.register(r'contacts', ContactView, 'contact')
 
 
 urlpatterns = [

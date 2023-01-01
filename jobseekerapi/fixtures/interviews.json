@@ -3,6 +3,7 @@
         "model": "jobseekerapi.interview",
         "pk": 1,
         "fields": {
+            "seeker": 2,
             "board_job": 1,
             "prep": 1,
             "date": "2022-12-22",
