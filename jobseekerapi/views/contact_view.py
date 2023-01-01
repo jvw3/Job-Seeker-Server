@@ -77,6 +77,20 @@ class ContactView(ViewSet):
                         serializer = ContactSerializer(descending_sorted_contact, many=True)
                         return Response(serializer.data, status=status.HTTP_200_OK)
 
+            elif sort_query_value == "lastcontact":
+                if "order" in request.query_params:
+                    order_query_value = request.query_params["order"]
+
+                    if order_query_value == "asc":
+                        ascending_sorted_contact = filtered_contacts.order_by("last_contact")
+                        serializer = ContactSerializer(ascending_sorted_contact, many=True)
+                        return Response(serializer.data, status=status.HTTP_200_OK)
+
+                    elif order_query_value == "desc":
+                        descending_sorted_contact = filtered_contacts.order_by("last_contact").reverse()
+                        serializer = ContactSerializer(descending_sorted_contact, many=True)
+                        return Response(serializer.data, status=status.HTTP_200_OK)
+
         # query params that allows user to search their contact list by name.
         if "name" in request.query_params:
             query_value = request.query_params["name"]
