@@ -73,6 +73,7 @@ def register_user(request):
 def current_seeker(request):
     user = request.user
     return Response({
+        'id': user.id,
         'username': user.username,
         'email': user.email,
         'firstName': user.first_name,

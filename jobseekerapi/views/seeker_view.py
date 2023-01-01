@@ -10,6 +10,7 @@ class SeekerView(ViewSet):
 
     def retrieve(self, request, pk):
 
+
         seeker = Seeker.objects.get(pk=pk)
 
         serializer = SeekerSerializer(seeker)
@@ -63,4 +64,4 @@ class SeekerSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     class Meta:
         model = Seeker
-        fields = ('id', 'user', "full_name", 'bio', "elevator_pitch", "boards", "tags")
+        fields = ('id', 'user', "full_name", 'bio', "elevator_pitch", "boards", "interviews")
