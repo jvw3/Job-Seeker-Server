@@ -27,8 +27,12 @@ class InterviewPrepView(ViewSet):
         return Response(serializer.data)
 
     def list(self, request):
-        interview_preps = InterviewPrep.objects.all()
-        serializer = InterviewPrepSerializer(interview_preps, many=True)
+        filtered_interview_preps = InterviewPrep.objects.all()
+
+        if "currentseeker" in request.query_params:
+            seeker = Seeker.objects.get(user=request.auth.user)
+            filtered_interview_preps =  InterviewPrep.objects.filter(seeker=seeker.id)
+        serializer = InterviewPrepSerializer(filtered_interview_preps, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
@@ -81,7 +85,6 @@ class InterviewPrepSerializer(serializers.ModelSerializer):
     seeker = SeekerSerializer(many=False)
     custom_preps = CustomPrepSerializer(many=True)
     questions = QuestionSerializer(many=True)
-    view = InterviewSerializer(many=False)
     class Meta:
         model = InterviewPrep
         fields = ("id", "seeker", "company_info", "custom_preps", "questions")
