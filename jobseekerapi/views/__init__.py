@@ -12,3 +12,4 @@ from .seeker_view import SeekerView
 from .tag_view import TagView
 from .board_job_tag_view import BoardJobTagView
 from .board_category_view import BoardCategoryView
+from .contact_view import ContactView
