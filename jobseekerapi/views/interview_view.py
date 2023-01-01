@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from jobseekerapi.models import Interview, BoardJob, InterviewPrep, Company, Job, CustomPrepInfo, Question
+from jobseekerapi.models import Interview, BoardJob, InterviewPrep, Company, Job, CustomPrepInfo, Question, Seeker
 from datetime import datetime
 
 
@@ -44,20 +44,33 @@ class InterviewView(ViewSet):
                         status=status.HTTP_404_NOT_FOUND,
                     )
 
+        if "upcoming" in request.query_params:
+            seeker = Seeker.objects.get(user=request.auth.user)
+            filtered_interviews =  Interview.objects.filter(seeker=seeker.id).order_by("date")
+            if len(filtered_interviews) > 3:
+                filtered_interviews = filtered_interviews[0:3]
+                serializer = InterviewSerializer(filtered_interviews, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                serializer = InterviewSerializer(filtered_interviews, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+
         serializer = InterviewSerializer(filtered_interviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
     def create(self, request):
 
+        seeker = Seeker.objects.get(user=request.auth.user)
         # interview_prep = InterviewPrep.objects.get(pk=request.data["prep_id"])
         board_job = BoardJob.objects.get(pk=request.data["board_job"])
-        unformatted_date = request.data["date"]
-        formatted_date = datetime.strptime(unformatted_date, "%Y-%m-%dT%H:%M:%S")
+        # date = request.data["date"]
+        # formatted_date = datetime.strptime(unformatted_date, "%Y-%m-%dT%H:%M:%S")
 
         interview = Interview.objects.create(
+            seeker=seeker,
             board_job=board_job,
-            date=formatted_date,
+            date=request.data["date"],
             is_complete = request.data["is_complete"],
             interview_feedback = request.data["interview_feedback"],
         )
