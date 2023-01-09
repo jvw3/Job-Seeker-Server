@@ -4,6 +4,7 @@ class Contact(models.Model):
     """This class creates an instance of a company. A company resource is only used in association with a BoardJob """
 
     name = models.CharField(max_length=80)
+    email = models.CharField(max_length=80)
     current_role = models.CharField(max_length=150)
     current_company = models.CharField(max_length=150)
     last_contact = models.DateField()
