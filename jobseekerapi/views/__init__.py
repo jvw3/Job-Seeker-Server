@@ -13,3 +13,6 @@ from .tag_view import TagView
 from .board_job_tag_view import BoardJobTagView
 from .board_category_view import BoardCategoryView
 from .contact_view import ContactView
+from .priority_rank_view import PriorityRankView
+from .network_meeting import NetworkMeetingView
+from .meeting_type import MeetingTypeView
