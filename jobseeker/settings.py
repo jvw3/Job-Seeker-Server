@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'jobseekerapi',
+    'drf_yasg',
 ]
 
 REST_FRAMEWORK = {
@@ -88,6 +89,28 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'jobseeker.wsgi.application'
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    "exclude_namespaces": [],  # List URL namespaces to ignore
+    "api_version": '0.1',  # Specify your API's version
+    "api_path": "localhost:8000",  # Specify the path to your API not a root level
+    "enabled_methods": [  # Specify which methods to enable in Swagger UI
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    "is_authenticated": False,  # Set to True to enforce user authentication,
+    "is_superuser": False,  # Set to True to enforce admin only access
+}
 
 
 # Database
