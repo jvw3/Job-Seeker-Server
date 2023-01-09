@@ -24,7 +24,7 @@ class CustomPrepView(ViewSet):
             )
 
         serializer = CustomPrepSerializer(custom_prep_info)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def list(self, request):
         custom_prep_infos = CustomPrepInfo.objects.all()
@@ -33,7 +33,7 @@ class CustomPrepView(ViewSet):
 
     def create(self, request):
 
-        interview_prep = InterviewPrep.objects.get(pk=request.data["prep_id"])
+        interview_prep = InterviewPrep.objects.get(pk=request.data["prep"])
 
         custom_prep_info = CustomPrepInfo.objects.create(
             prep=interview_prep,
@@ -43,7 +43,7 @@ class CustomPrepView(ViewSet):
         )
 
         serializer = CustomPrepSerializer(custom_prep_info)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk):
 
