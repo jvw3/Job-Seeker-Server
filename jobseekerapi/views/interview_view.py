@@ -142,4 +142,4 @@ class InterviewSerializer(serializers.ModelSerializer):
     prep = InterviewPrepSerializer(many=False)
     class Meta:
         model = Interview
-        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_feedback")
+        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_team","interview_feedback")
