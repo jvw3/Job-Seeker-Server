@@ -162,6 +162,20 @@ class ContactView(ViewSet):
         """Handle POST request for creation of a new contact"""
 
         seeker = Seeker.objects.get(user=request.auth.user)
+        
+        required_contact_fields = ['name', 'current_role', 'current_company', 'last_contact', 'number_of_contacts', 'connection_level', "linked_in", "notes"]
+        
+        missing_fields = "The following fields are missing from the post request for this contact: "
+        is_field_missing = False
+        
+        for field in required_contact_fields:
+            value = request.data.get(field, None)
+            if value is None:
+                missing_fields += f'{field}, '
+                is_field_missing = True
+
+        if is_field_missing:
+            return Response({"message": missing_fields}, status = status.HTTP_400_BAD_REQUEST)
 
         contact = Contact.objects.create(
             name=request.data["name"],
@@ -181,6 +195,7 @@ class ContactView(ViewSet):
     def update(self, request, pk):
         """Handle PUT request for update of an existing contact"""
         contact = Contact.objects.get(pk=pk)
+        contact.name = request.data["name"]
         contact.current_role = request.data["current_role"]
         contact.current_company = request.data["current_company"]
         contact.last_contact = request.data["last_contact"]
@@ -194,8 +209,8 @@ class ContactView(ViewSet):
 
     def destroy(self, request, pk):
         """Handle DELETE Request for delete request of an existing contact"""
-        custom_prep_info = CustomPrepInfo.objects.get(pk=pk)
-        custom_prep_info.delete()
+        contact = Contact.objects.get(pk=pk)
+        contact.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -209,4 +224,4 @@ class ContactSerializer(serializers.ModelSerializer):
     seeker = SeekerSerializer(many=False)
     class Meta:
         model = Contact
-        fields = ("id", "name", "current_role", "current_company", "last_contact", "number_of_contacts", "connection_level", "linked_in", "notes", "seeker"  )
+        fields = ("id", "name", "email", "current_role", "current_company", "last_contact", "number_of_contacts", "connection_level", "linked_in", "notes", "seeker"  )

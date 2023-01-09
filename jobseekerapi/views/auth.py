@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from jobseekerapi.models import Seeker
+from django.http import HttpResponseServerError
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -27,6 +28,7 @@ def login_user(request):
         data = {
             'valid': True,
             'token': token.key,
+            'userId': token.user_id,
             'is_staff': authenticated_user.is_staff
         }
         return Response(data)
@@ -65,18 +67,22 @@ def register_user(request):
     token = Token.objects.create(user=seeker.user)
     # Return the token to the client
     data = { 'successful': True,
-            'token': token.key }
+            'token': token.key}
     return Response(data)
 
 
 @api_view(['GET'])
 def current_seeker(request):
     user = request.user
+    seeker = Seeker.objects.get(user=user.id)
+    
     return Response({
         'id': user.id,
+        'seeker': seeker.id,
         'username': user.username,
         'email': user.email,
         'firstName': user.first_name,
         'lastName': user.last_name,
         'isStaff': user.is_staff
     })
+

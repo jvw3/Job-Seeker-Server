@@ -20,8 +20,14 @@ class SeekerView(ViewSet):
     def list(self, request):
 
 
-        seeker = Seeker.objects.all().order_by('user__first_name')
-        serializer = SeekerSerializer(seeker, many=True)
+        seekers = Seeker.objects.all().order_by('user__first_name')
+        
+        if "current" in request.query_params:
+            currentseeker = Seeker.objects.get(user=request.auth.user)
+            serializer = SeekerSerializer(currentseeker, many=False)
+            return Response(serializer.data)
+
+        serializer = SeekerSerializer(seekers, many=True)
         return Response(serializer.data)
 
 

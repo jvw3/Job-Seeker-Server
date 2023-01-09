@@ -36,6 +36,7 @@ class TagView(ViewSet):
         tag = Tag.objects.create(
             name=request.data["name"]
         )
+        
 
         serializer = TagSerializer(tag)
         return Response(serializer.data)

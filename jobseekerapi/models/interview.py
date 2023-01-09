@@ -8,4 +8,5 @@ class Interview(models.Model):
     prep = models.OneToOneField("InterviewPrep", on_delete=models.CASCADE, related_name="interview", null=True, blank=True)
     date = models.DateTimeField()
     is_complete = models.BooleanField()
+    interview_team = models.CharField(max_length=500, blank=True)
     interview_feedback = models.TextField(max_length=10000, blank=True)
