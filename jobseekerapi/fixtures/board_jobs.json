@@ -12,13 +12,13 @@
         "interview_rounds": 1,
         "received_offer": false,
         "salary": 70000,
-        "location": "remote",
+        "location": "Nashville, TN",
+        "work_status": "Remote",
         "salary_rating": 7,
         "location_rating": 7,
         "culture_rating": 7,
         "leadership_rating": 7,
         "team_rating": 7,
-        "job_score": 7,
         "board": 1,
         "category": 2
         }

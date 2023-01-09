@@ -4,6 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Jack Jones",
+      "email": "jjones@gmail.com",
       "current_role": "Software Engineer III",
       "current_company": "Apple",
       "last_contact": "2022-11-26",
