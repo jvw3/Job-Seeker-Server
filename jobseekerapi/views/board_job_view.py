@@ -98,6 +98,47 @@ class BoardJobView(ViewSet):
             except Category.DoesNotExist:
                 return Response({"message": "The category you specified does not exist"}, status = status.HTTP_404_NOT_FOUND)
 
+        salary_rating_from_board_job_request = request.data.get("salary_rating")
+
+        try:
+            if salary_rating_from_board_job_request > 10 or salary_rating_from_board_job_request < 0:
+                return Response({"message": 'Salary rating must be between 0 and 10.'}, status = status.HTTP_400_BAD_REQUEST)
+        except TypeError:
+            return Response({"message": 'Rating must be an integer'}, status = status.HTTP_400_BAD_REQUEST)
+
+
+        location_rating_from_board_job_request = request.data.get("location_rating")
+
+        try:
+            if location_rating_from_board_job_request > 10 or location_rating_from_board_job_request < 0:
+                return Response({"message": 'Location rating must be between 0 and 10.'}, status = status.HTTP_400_BAD_REQUEST)
+        except TypeError:
+            return Response({"message": 'Rating must be an integer'}, status = status.HTTP_400_BAD_REQUEST)
+
+        culture_rating_from_board_job_request = request.data.get("culture_rating")
+
+        try:
+            if culture_rating_from_board_job_request > 10 or culture_rating_from_board_job_request < 0:
+                return Response({"message": 'Culture rating must be between 0 and 10.'}, status = status.HTTP_400_BAD_REQUEST)
+        except TypeError:
+            return Response({"message": 'Culture rating must be an integer'}, status = status.HTTP_400_BAD_REQUEST)
+
+        leadership_rating_from_board_job_request = request.data.get("leadership_rating")
+
+        try:
+            if leadership_rating_from_board_job_request > 10 or leadership_rating_from_board_job_request < 0:
+                return Response({"message": 'Leadership rating must be between 0 and 10.'}, status = status.HTTP_400_BAD_REQUEST)
+        except TypeError:
+            return Response({"message": 'Leadership rating must be an integer'}, status = status.HTTP_400_BAD_REQUEST)
+
+        team_rating_from_board_job_request = request.data.get("team_rating")
+
+        try:
+            if team_rating_from_board_job_request > 10 or team_rating_from_board_job_request < 0:
+                return Response({"message": 'Team rating must be between 0 and 10.'}, status = status.HTTP_400_BAD_REQUEST)
+        except TypeError:
+            return Response({"message": 'Team rating must be an integer'}, status = status.HTTP_400_BAD_REQUEST)
+
         board_job = BoardJob.objects.create(
             job=job,
             custom_job=request.data["custom_job"],
@@ -109,6 +150,7 @@ class BoardJobView(ViewSet):
             received_offer=request.data["received_offer"],
             salary=request.data["salary"],
             location=request.data["location"],
+            work_status=request.data["work_status"],
             salary_rating=request.data["salary_rating"],
             location_rating=request.data["location_rating"],
             culture_rating=request.data["culture_rating"],
@@ -147,9 +189,9 @@ class BoardJobView(ViewSet):
         board_job.has_interviewed = request.data["has_interviewed"]
         board_job.interview_rounds = request.data["interview_rounds"]
         board_job.received_offer = request.data["received_offer"]
-        board_job.received_offer = request.data["received_offer"]
         board_job.salary = request.data["salary"]
         board_job.location = request.data["location"]
+        board_job.work_status = request.data["work_status"]
         board_job.salary_rating = request.data["salary_rating"]
         board_job.location_rating = request.data["location_rating"]
         board_job.culture_rating = request.data["culture_rating"]
@@ -207,5 +249,5 @@ class BoardJobSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BoardJob
-        fields = ("id", "job", "custom_job", "company", "custom_company", "has_applied", "has_interviewed", "interview_rounds", "received_offer", "salary", "location", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category", "interviews", "tags", "joined")
+        fields = ("id", "job", "custom_job", "company", "custom_company", "has_applied", "has_interviewed", "interview_rounds", "received_offer", "salary", "location", "work_status", "salary_rating", "location_rating", "culture_rating", "leadership_rating", "team_rating", "board", "category", "interviews", "tags", "job_score")
 
