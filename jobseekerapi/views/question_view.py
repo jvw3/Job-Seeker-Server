@@ -1,4 +1,4 @@
-"""View module for handling requests for boards"""
+"""View module for handling requests for questions"""
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
