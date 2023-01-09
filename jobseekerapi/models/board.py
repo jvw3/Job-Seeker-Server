@@ -1,4 +1,5 @@
 from django.db import models
+from .priority_rank import PriorityRank
 
 
 class Board(models.Model):
@@ -50,3 +51,10 @@ class Board(models.Model):
             if job.received_offer == True:
                     offer_count += 1
         return offer_count
+
+    # @property
+    # def ordered_priorities(self):
+    #     board_priorities = PriorityRank.objects.filter(board=self.id)
+    #     board_priorities = board_priorities.objects.values_list('board_priorities', flat=True)
+    #     updated_priorities = board_priorities.order_by("rank_value")
+    #     return updated_priorities
