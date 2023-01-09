@@ -49,12 +49,21 @@ class BoardJobTagView(ViewSet):
 
         board_job = BoardJob.objects.get(pk=request.data["board_job"])
         tag = Tag.objects.get(pk=request.data["tag"])
-        # board_job_tags = BoardJobTag.objects.all()
+        board_job_tags = BoardJobTag.objects.filter(board_job=board_job.id)
 
 
         board_job_tag = BoardJobTag()
         board_job_tag.board_job = board_job
         board_job_tag.tag = tag
+
+        for job_tag in board_job_tags:
+            if job_tag.tag == board_job_tag.tag:
+                return Response(
+                {"message": "This Category already exists on your board! Please choose another."},
+                status=status.HTTP_405_METHOD_NOT_ALLOWED,
+            )
+
+
         board_job_tag.save()
 
         serializer = BoardJobTagSerializer(board_job_tag)
