@@ -79,7 +79,7 @@ class InterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_feedback")
+        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_team","interview_feedback")
 
 class InterviewPrepSerializer(serializers.ModelSerializer):
     seeker = SeekerSerializer(many=False)
