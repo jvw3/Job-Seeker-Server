@@ -38,14 +38,14 @@
         "model": "jobseekerapi.category",
         "pk": 6,
         "fields": {
-            "name": "Denied (By Company)"
+            "name": "Denied"
         }
     },
     {
         "model": "jobseekerapi.category",
         "pk": 7,
         "fields": {
-            "name": "Declined (By Applicant)"
+            "name": "Declined"
         }
     },
     {
