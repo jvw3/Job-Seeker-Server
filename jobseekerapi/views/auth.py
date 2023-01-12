@@ -29,7 +29,7 @@ def login_user(request):
             'valid': True,
             'token': token.key,
             'userId': token.user_id,
-            'is_staff': authenticated_user.is_staff
+            'isStaff': authenticated_user.is_staff
         }
         return Response(data)
     else:
