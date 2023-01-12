@@ -62,16 +62,17 @@ class InterviewView(ViewSet):
     def create(self, request):
 
         seeker = Seeker.objects.get(user=request.auth.user)
-        # interview_prep = InterviewPrep.objects.get(pk=request.data["prep_id"])
         board_job = BoardJob.objects.get(pk=request.data["board_job"])
-        # date = request.data["date"]
-        # formatted_date = datetime.strptime(unformatted_date, "%Y-%m-%dT%H:%M:%S")
+        date = request.data["date"]
+        # unformatted_date = datetime.strptime(date, "%Y-%m-%dT%H:%M")
+        # formatted_date = unformatted_date.strftime("%m-%d-%Y %I:%M %p")
 
         interview = Interview.objects.create(
             seeker=seeker,
             board_job=board_job,
-            date=request.data["date"],
+            date = request.data["date"],
             is_complete = request.data["is_complete"],
+            interview_team=request.data["interview_team"],
             interview_feedback = request.data["interview_feedback"],
         )
 
@@ -89,6 +90,7 @@ class InterviewView(ViewSet):
         interview.prep=interview_prep
         interview.date=request.data["date"]
         interview.is_complete = request.data["is_complete"]
+        interview.interview_team = request.data["interview_team"]
         interview.interview_feedback = request.data["interview_feedback"]
         interview.save()
 

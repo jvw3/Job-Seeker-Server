@@ -21,7 +21,7 @@ class SeekerView(ViewSet):
 
 
         seekers = Seeker.objects.all().order_by('user__first_name')
-        
+
         if "current" in request.query_params:
             currentseeker = Seeker.objects.get(user=request.auth.user)
             serializer = SeekerSerializer(currentseeker, many=False)
@@ -38,6 +38,7 @@ class SeekerView(ViewSet):
 
         user.first_name = request.data["first_name"]
         user.last_name = request.data["last_name"]
+        user.is_active = request.data["is_active"]
         seeker.bio = request.data["bio"]
         seeker.elevator_pitch = request.data["elevator_pitch"]
 
