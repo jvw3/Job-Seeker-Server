@@ -43,24 +43,30 @@ class BoardView(ViewSet):
 
         boards = Board.objects.filter(seeker=seeker.id)
 
+        if "active" in request.query_params:
+            filtered_boards =  Board.objects.filter(seeker=seeker.id)
+            active_filtered_boards = filtered_boards.filter(is_active=True)
+            serializer = BoardSerializer(active_filtered_boards, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
         serializer = BoardSerializer(boards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request):
 
         seeker = Seeker.objects.get(user=request.auth.user)
-        
-        required_board_fields = ['seeker', 'title', 'goal', 'requirements', 'date_started', 'is_active']
-        
+
+        required_board_fields = [ 'title', 'goal', 'requirements']
+
         missing_fields = "The following fields are missing from the post request: "
         is_field_missing = False
-        
+
         for field in required_board_fields:
             value = request.data.get(field, None)
             if value is None:
                 missing_fields += f'{field}, '
                 is_field_missing = True
-        
+
         if is_field_missing:
             return Response({"message": missing_fields}, status = status.HTTP_400_BAD_REQUEST)
 
@@ -77,7 +83,7 @@ class BoardView(ViewSet):
             goal=request.data["goal"],
             requirements=request.data["requirements"],
             date_started=date.today(),
-            is_active=True
+            is_active=False
         )
 
         for category in categories:
@@ -88,7 +94,7 @@ class BoardView(ViewSet):
             board_category.save()
 
         serializer = BoardSerializer(board)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk):
 

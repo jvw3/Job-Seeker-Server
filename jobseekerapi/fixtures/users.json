@@ -10,7 +10,7 @@
       "first_name": "ADMIN",
       "last_name": "USER",
       "email": "admin@jobseeker.dev",
-      "is_staff": false,
+      "is_staff": true,
       "is_active": true,
       "date_joined": "2022-12-12T15:35:27.818Z",
       "groups": [],

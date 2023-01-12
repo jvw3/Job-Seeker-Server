@@ -14,10 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf.urls import include
 from rest_framework import routers
 from jobseekerapi.views import BoardView, CategoryView, CompanyView, QuestionView, register_user, login_user, current_seeker, JobView, InterviewPrepView, CustomPrepView, BoardJobView, InterviewView, SeekerView, TagView, BoardJobTagView, BoardCategoryView, InterviewPrepView, ContactView, PriorityRankView, NetworkMeetingView, MeetingTypeView
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="JobSeeker API",
+        default_version='v1',
+        description="API for JobSeeker Application",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@levelup.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -46,5 +63,7 @@ urlpatterns = [
     path('login', login_user),
     path('currentseeker', current_seeker),
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
+    re_path(r'^swagger/$', schema_view.with_ui('swagger',
+            cache_timeout=0), name='schema-swagger-ui'),
+    path('', include(router.urls)),
 ]
