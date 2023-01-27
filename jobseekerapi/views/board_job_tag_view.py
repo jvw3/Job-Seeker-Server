@@ -59,7 +59,7 @@ class BoardJobTagView(ViewSet):
         for job_tag in board_job_tags:
             if job_tag.tag == board_job_tag.tag:
                 return Response(
-                {"message": "This Category already exists on your board! Please choose another."},
+                {"message": "This tag already exists on your job! Please choose another."},
                 status=status.HTTP_405_METHOD_NOT_ALLOWED,
             )
 

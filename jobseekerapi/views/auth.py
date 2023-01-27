@@ -56,7 +56,7 @@ def register_user(request):
         email=request.data['email']
     )
 
-    # Now save the extra info in the rareapi_rareUser table
+    
     seeker = Seeker.objects.create(
         user=new_user,
         bio=request.data['bio'],
@@ -75,7 +75,7 @@ def register_user(request):
 def current_seeker(request):
     user = request.user
     seeker = Seeker.objects.get(user=user.id)
-    
+
     return Response({
         'id': user.id,
         'seeker': seeker.id,

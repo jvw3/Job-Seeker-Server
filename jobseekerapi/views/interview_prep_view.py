@@ -60,6 +60,8 @@ class InterviewPrepView(ViewSet):
         interview_prep.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
+
+
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
@@ -79,7 +81,7 @@ class InterviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interview
-        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_team","interview_feedback")
+        fields = ("id", "board_job", "prep", "date", "is_complete", "interview_team","interview_feedback", "board")
 
 class InterviewPrepSerializer(serializers.ModelSerializer):
     seeker = SeekerSerializer(many=False)

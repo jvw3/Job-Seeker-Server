@@ -40,6 +40,11 @@ class NetworkMeetingView(ViewSet):
             serializer = NetworkMeetingSerializer(completed_network_meetings, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
+        if "scheduled" in request.query_params:
+            scheduled_network_meetings = network_meetings.filter(is_complete=False)
+            serializer = NetworkMeetingSerializer(scheduled_network_meetings, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
         if "upcoming" in request.query_params:
             seeker = Seeker.objects.get(user=request.auth.user)
             filtered_meetings =  NetworkMeeting.objects.filter(seeker=seeker).order_by("meeting_date")
@@ -82,8 +87,8 @@ class NetworkMeetingView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
-        meeting_type = NetworkMeeting.objects.get(pk=pk)
-        meeting_type.delete()
+        network_meeting = NetworkMeeting.objects.get(pk=pk)
+        network_meeting.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 # class SeekerSerializer(serializers.ModelSerializer):
