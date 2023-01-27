@@ -7,9 +7,22 @@
             "board_job": 1,
             "prep": 1,
             "date": "2022-12-22",
-            "is_complete": true,
+            "is_complete": false,
             "interview_team": "Mike Jones, Jim Jack",
-            "interview_feedback": "Need to do better on Technical Questions!"
+            "interview_feedback": "Not a great fit."
+        }
+    },
+    {
+        "model": "jobseekerapi.interview",
+        "pk": 1,
+        "fields": {
+            "seeker": 2,
+            "board_job": 2,
+            "prep": 1,
+            "date": "2022-12-22",
+            "is_complete": false,
+            "interview_team": "Mike Jones, Jim Jack",
+            "interview_feedback": "Not a great fit."
         }
     }
 ]

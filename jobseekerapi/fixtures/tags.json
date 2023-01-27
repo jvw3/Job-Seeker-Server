@@ -50,28 +50,28 @@
     },
     {
         "model": "jobseekerapi.tag",
-        "pk": 8,
+        "pk": 9,
         "fields": {
             "name": "Full Time"
         }
     },
     {
         "model": "jobseekerapi.tag",
-        "pk": 8,
+        "pk": 10,
         "fields": {
             "name": "Part Time"
         }
     },
     {
         "model": "jobseekerapi.tag",
-        "pk": 8,
+        "pk": 11,
         "fields": {
             "name": "1099"
         }
     },
     {
         "model": "jobseekerapi.tag",
-        "pk": 8,
+        "pk": 12,
         "fields": {
             "name": "W2"
         }
