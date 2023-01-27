@@ -102,6 +102,7 @@ class BoardView(ViewSet):
         board.title = request.data["title"]
         board.goal = request.data["goal"]
         board.requirements = request.data["requirements"]
+        board.is_active = request.data["is_active"]
         board.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)

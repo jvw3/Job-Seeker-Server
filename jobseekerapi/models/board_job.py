@@ -12,6 +12,7 @@ class BoardJob(models.Model):
     custom_job = models.CharField(max_length=100)
     company = models.ForeignKey("Company", on_delete=models.CASCADE)
     custom_company = models.CharField(max_length=100)
+    job_posting = models.CharField(max_length=200, blank=True)
     has_applied = models.BooleanField()
     has_interviewed = models.BooleanField()
     interview_rounds = models.IntegerField(null=True, blank=True)

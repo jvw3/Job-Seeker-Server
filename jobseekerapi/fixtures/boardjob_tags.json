@@ -1,7 +1,7 @@
 [
     {
         "model": "jobseekerapi.boardjobtag",
-        "pk": 2,
+        "pk": 1,
         "fields": {
             "board_job": 1,
             "tag": 2
@@ -11,7 +11,7 @@
         "model": "jobseekerapi.boardjobtag",
         "pk": 2,
         "fields": {
-            "board_job": 1,
+            "board_job": 2,
             "tag": 2
         }
     },
@@ -19,7 +19,7 @@
         "model": "jobseekerapi.boardjobtag",
         "pk": 3,
         "fields": {
-            "board_job": 1,
+            "board_job": 3,
             "tag": 3
         }
     },
@@ -27,8 +27,48 @@
         "model": "jobseekerapi.boardjobtag",
         "pk": 4,
         "fields": {
-            "board_job": 1,
+            "board_job": 4,
             "tag": 4
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 5,
+        "fields": {
+            "board_job": 5,
+            "tag": 3
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 6,
+        "fields": {
+            "board_job": 5,
+            "tag": 9
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 7,
+        "fields": {
+            "board_job": 6,
+            "tag": 5
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 8,
+        "fields": {
+            "board_job": 7,
+            "tag": 2
+        }
+    },
+    {
+        "model": "jobseekerapi.boardjobtag",
+        "pk": 9,
+        "fields": {
+            "board_job": 3,
+            "tag": 5
         }
     }
 ]

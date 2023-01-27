@@ -40,15 +40,20 @@ class NetworkMeetingView(ViewSet):
             serializer = NetworkMeetingSerializer(completed_network_meetings, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
+        if "scheduled" in request.query_params:
+            scheduled_network_meetings = network_meetings.filter(is_complete=False)
+            serializer = NetworkMeetingSerializer(scheduled_network_meetings, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
         if "upcoming" in request.query_params:
             seeker = Seeker.objects.get(user=request.auth.user)
             filtered_meetings =  NetworkMeeting.objects.filter(seeker=seeker).order_by("meeting_date")
             if len(filtered_meetings) > 3:
                 filtered_meetings = filtered_meetings[0:3]
-                serializer = SeekerSerializer(filtered_meetings, many=True)
+                serializer = NetworkMeetingSerializer(filtered_meetings, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                serializer = SeekerSerializer(filtered_meetings, many=True)
+                serializer = NetworkMeetingSerializer(filtered_meetings, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
 
         serializer = NetworkMeetingSerializer(network_meetings, many=True)
@@ -82,19 +87,19 @@ class NetworkMeetingView(ViewSet):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, pk):
-        meeting_type = NetworkMeeting.objects.get(pk=pk)
-        meeting_type.delete()
+        network_meeting = NetworkMeeting.objects.get(pk=pk)
+        network_meeting.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-class SeekerSerializer(serializers.ModelSerializer):
+# class SeekerSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Seeker
-        fields = ('id', 'user', "full_name", 'bio', "elevator_pitch", "boards", "interviews")
+#     class Meta:
+#         model = Seeker
+#         fields = ('id', "full_name", 'bio', "elevator_pitch", "boards", "interviews")
 
 class ContactSerializer(serializers.ModelSerializer):
 
-    seeker = SeekerSerializer(many=False)
+    
     class Meta:
         model = Contact
         fields = ("id", "name", "email", "current_role", "current_company", "last_contact", "number_of_contacts", "connection_level", "linked_in", "notes", "seeker")
@@ -102,6 +107,7 @@ class ContactSerializer(serializers.ModelSerializer):
 class NetworkMeetingSerializer(serializers.ModelSerializer):
 
     contact = ContactSerializer(many=False)
+    
     class Meta:
         model = NetworkMeeting
         fields = ("id", "seeker", "contact", "description", "meeting_date", "notes", "is_complete","meeting_type")

@@ -38,7 +38,9 @@ class SeekerView(ViewSet):
 
         user.first_name = request.data["first_name"]
         user.last_name = request.data["last_name"]
-        user.is_active = request.data["is_active"]
+        user.username = request.data["username"]
+        user.email = request.data["email"]
+        seeker.current_role = request.data["current_role"]
         seeker.bio = request.data["bio"]
         seeker.elevator_pitch = request.data["elevator_pitch"]
 
@@ -63,7 +65,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "is_staff", "date_joined", "email", "is_active")
+        fields = ("first_name", "last_name", "username", "email", "is_active")
 
 class SeekerSerializer(serializers.ModelSerializer):
 
@@ -71,4 +73,4 @@ class SeekerSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)
     class Meta:
         model = Seeker
-        fields = ('id', 'user', "full_name", 'bio', "elevator_pitch", "boards", "interviews")
+        fields = ('id', 'user', "current_role", "full_name", 'bio', "elevator_pitch", "boards", "interviews")

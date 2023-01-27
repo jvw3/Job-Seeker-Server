@@ -6,12 +6,76 @@
       "name": "Jack Jones",
       "email": "jjones@gmail.com",
       "current_role": "Software Engineer III",
-      "current_company": "Apple",
-      "last_contact": "2022-11-26",
+      "current_company": "Casper-Schaden",
+      "last_contact": "2022-12-05",
+      "connection_level": 4,
+      "linked_in": "www.linkedin.com",
+      "number_of_contacts": 4,
+      "notes": "Great person. Will be helpful",
+      "seeker": 2
+    }
+  },
+  {
+    "model": "jobseekerapi.contact",
+    "pk": 2,
+    "fields": {
+      "name": "Jillian Danielson",
+      "email": "jdanielson@gmail.com",
+      "current_role": "Software Engineer II",
+      "current_company": "Kling Group",
+      "last_contact": "2022-12-20",
       "connection_level": 5,
       "linked_in": "www.linkedin.com",
+      "number_of_contacts": 7,
+      "notes": "Possible Mentor!",
+      "seeker": 2
+    }
+  },
+  {
+    "model": "jobseekerapi.contact",
+    "pk": 3,
+    "fields": {
+      "name": "Ira Allen",
+      "email": "ira@gmail.com",
+      "current_role": "Tech Recruiter",
+      "current_company": "Zemlak LTD",
+      "last_contact": "2023-01-06",
+      "connection_level": 3,
+      "linked_in": "www.linkedin.com",
       "number_of_contacts": 2,
-      "notes": "Great person. Will be helpful",
+      "notes": "Reach out again after I've applied to Job",
+      "seeker": 2
+    }
+  },
+  {
+    "model": "jobseekerapi.contact",
+    "pk": 4,
+    "fields": {
+      "name": "Max Florent",
+      "email": "jjones@gmail.com",
+      "current_role": "Software Engineer I",
+      "current_company": "Schinner Inc",
+      "last_contact": "2023-01-12",
+      "connection_level": 2,
+      "linked_in": "www.linkedin.com",
+      "number_of_contacts": 2,
+      "notes": "Gave very helpful advice",
+      "seeker": 2
+    }
+  },
+  {
+    "model": "jobseekerapi.contact",
+    "pk": 5,
+    "fields": {
+      "name": "Laura Kahina",
+      "email": "Laura@gmail.com",
+      "current_role": "Solutions Architect",
+      "current_company": "BrightStar Solutions",
+      "last_contact": "2022-12-26",
+      "connection_level": 2,
+      "linked_in": "www.linkedin.com",
+      "number_of_contacts": 1,
+      "notes": "",
       "seeker": 2
     }
   }

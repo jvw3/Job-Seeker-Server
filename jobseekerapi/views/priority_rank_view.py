@@ -41,11 +41,15 @@ class PriorityRankView(ViewSet):
 
     def create(self, request):
 
-        question = Question.objects.create(
-            content=request.data["content"]
+        board = Board.objects.get(pk=request.data["board"])
+
+        priority_rank = PriorityRank.objects.create(
+            board=board,
+            name=request.data["name"],
+            rank_value=request.data["rank_value"],
         )
 
-        serializer = PriorityRankSerializer(question)
+        serializer = PriorityRankSerializer(priority_rank)
         return Response(serializer.data)
 
     def update(self, request, pk):

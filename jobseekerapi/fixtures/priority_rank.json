@@ -43,5 +43,50 @@
             "name": "team",
             "rank_value": 5
         }
+    },
+    {
+        "model": "jobseekerapi.priorityrank",
+        "pk": 6,
+        "fields": {
+            "board": 2,
+            "name": "salary",
+            "rank_value": 1
+        }
+    },
+    {
+        "model": "jobseekerapi.priorityrank",
+        "pk": 7,
+        "fields": {
+            "board": 2,
+            "name": "location",
+            "rank_value": 2
+        }
+    },
+    {
+        "model": "jobseekerapi.priorityrank",
+        "pk": 8,
+        "fields": {
+            "board": 2,
+            "name": "culture",
+            "rank_value": 3
+        }
+    },
+    {
+        "model": "jobseekerapi.priorityrank",
+        "pk": 9,
+        "fields": {
+            "board": 2,
+            "name": "leadership",
+            "rank_value": 4
+        }
+    },
+    {
+        "model": "jobseekerapi.priorityrank",
+        "pk": 10,
+        "fields": {
+            "board": 2,
+            "name": "team",
+            "rank_value": 5
+        }
     }
 ]
