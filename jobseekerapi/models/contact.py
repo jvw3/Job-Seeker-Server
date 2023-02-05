@@ -1,7 +1,7 @@
 from django.db import models
 
 class Contact(models.Model):
-    """This class creates an instance of a company. A company resource is only used in association with a BoardJob """
+    """This class creates an instance of a contact. A contact resource is only used in association with a Network """
 
     name = models.CharField(max_length=80)
     email = models.CharField(max_length=80)
