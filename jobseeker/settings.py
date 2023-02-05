@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'jobseekerapi',
     'drf_yasg',
+    'djmoney',
 ]
 
 REST_FRAMEWORK = {

@@ -2,12 +2,13 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .board import Board
 from .priority_rank import PriorityRank
-
+import uuid
+from djmoney.models.fields import MoneyField
 
 class BoardJob(models.Model):
     """This class creates an instance a job ON a board"""
 
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     job = models.ForeignKey("Job", on_delete=models.CASCADE)
     custom_job = models.CharField(max_length=100)
     company = models.ForeignKey("Company", on_delete=models.CASCADE)
@@ -17,7 +18,7 @@ class BoardJob(models.Model):
     has_interviewed = models.BooleanField()
     interview_rounds = models.IntegerField(null=True, blank=True)
     received_offer = models.BooleanField()
-    salary = models.IntegerField()
+    salary = MoneyField(max_digits=10, decimal_places=0, default_currency='USD')
     location = models.CharField(max_length=70)
     work_status = models.CharField(max_length=50)
     salary_rating = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(10)])
