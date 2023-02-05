@@ -1,8 +1,10 @@
 from django.db import models
+import uuid
 
 class Interview(models.Model):
     """This class creates an instance of an interview"""
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     seeker = models.ForeignKey("Seeker", on_delete=models.CASCADE, related_name="interviews")
     board_job = models.ForeignKey("BoardJob", on_delete=models.CASCADE, related_name="interviews")
     prep = models.OneToOneField("InterviewPrep", on_delete=models.CASCADE, related_name="interview", null=True, blank=True)
