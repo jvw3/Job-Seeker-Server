@@ -1,10 +1,10 @@
 from django.db import models
 from .priority_rank import PriorityRank
-
+import uuid
 
 class Board(models.Model):
     """This class creates an instance of a (job) board"""
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     seeker = models.ForeignKey("Seeker", on_delete=models.CASCADE, related_name="boards")
     title = models.CharField(max_length=50)
     goal = models.CharField(max_length=200)
